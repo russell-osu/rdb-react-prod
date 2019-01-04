@@ -10,15 +10,15 @@ var mysql = require('./dbcon.js');
 var bodyParser = require('body-parser');
 
 var app = express();
-var handlebars = require('express-handlebars').create({defaultLayout:'main'});
+//var handlebars = require('express-handlebars').create({defaultLayout:'main'});
 
-app.engine('handlebars', handlebars.engine);
+//app.engine('handlebars', handlebars.engine);
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 
 
-app.set('view engine', 'handlebars');
+//app.set('view engine', 'handlebars');
 //app.set('port', process.argv[2]);
 app.set("port", process.env.PORT || 3001);
 app.set('mysql', mysql);
