@@ -60,9 +60,10 @@ class Restaurant extends Component {
     })
     .then(response => response.json())
     .then(response => console.log(JSON.stringify(response)))
-    .then(this.setState({
-      restaurants: [...this.state.restaurants, restaurant]
-    }))
+    // .then(this.setState({
+    //   restaurants: [...this.state.restaurants, restaurant]
+    // }))
+    .then(this.loadTable())
     .catch(error => console.error(error));
   }
 
