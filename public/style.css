@@ -1,0 +1,128 @@
+table, th, td {
+	border: 1px solid;
+}
+
+th, td {
+	width: 7em;
+	text-align: center;
+	padding: 5px;
+
+}
+
+
+tbody th{
+	font-style: italic;
+	font-weight: normal;
+}
+
+tbody tr:nth-of-type(odd) {
+	background: #87c466;
+}
+
+tbody tr:nth-of-type(even) {
+	background: #28AFEB;
+}
+
+.outer-content {
+	position: relative;
+	top: 20px;
+	width:75%;
+	height: 50px;
+	background-color: pink;
+
+
+
+
+}
+
+.inner-content {
+	position: absolute;
+	height: 20px;
+	top: 15px;
+	left: 12.5%;
+	background-color:#28AFEB;
+	width:75%;
+	text-align: center;
+
+
+}
+
+form {
+	position: relative;
+	top: 20px;
+}
+
+fieldset {
+margin-top: 10px;
+}
+
+
+.carousel {
+	width: 600px;
+	margin: 0 auto;
+
+}
+
+body {
+	width: 90%;
+	padding-left: 10px;
+}
+
+#scrollbox {
+	height: 100px;
+	width: 50%;
+	overflow: auto;
+	border: 2px dashed;
+	border-color: #87c466;
+	padding: 4px;
+
+
+}
+
+.menucell {
+
+	width: 7em;
+
+}
+
+
+.menucell a
+{
+	width: 100%;
+	height: 100%;
+	display: block;
+	color: #FFFFFF;
+	/*text-decoration: none;*/
+}
+
+strong {
+	font-weight: bold;
+	font-style: italic;
+}
+
+#myCarousel {
+	float: left;
+}
+
+#underCarousel {
+	clear: both;
+	padding-top: 20px;
+}
+
+.reviewCell, .descriptionCell {
+	width: 20em;
+	text-align: left;
+}
+
+
+
+form > fieldset {
+	border: 2px solid;
+	border-color: #87c466;
+	padding: 15px;
+	width: 60%;
+}
+
+
+
+

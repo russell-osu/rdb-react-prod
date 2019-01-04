@@ -1,0 +1,43 @@
+<!-- Code has been inspired by the model code in CS 340 (although altered significantly) -->
+    <h1>Associate a User with a Visit</h1>
+    <form id="add_user_visit" action="/user_visit" method="post">
+        <fieldset>
+            <label>
+                User:
+                <select name="user_id">
+                    {{#each user}}
+                    <option value="{{id}}">{{fname}} {{lname}}</option>
+                    {{/each}}
+                </select>
+            </label><br>
+            <label>
+                Visit:
+                <select name="visit_id">
+                    {{#each visit}}
+                    <option value="{{id}}">{{visit_date}}:  {{restaurant_name}}</option>
+                    {{/each}}
+                </select>
+            </label><br>
+            <input type="submit" value="Submit">
+        </fieldset>
+    </form>
+    <br>
+    <br>
+    <h2>User-Vist List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Visit</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each user_visit}}
+            <tr>
+                <td>{{fname}} {{lname}}</td>
+                <td>{{visit_date}}:  {{restaurant_name}}</td>
+                <td><button onclick="deleteUserVisit({{user_id}}, {{visit_id}})">Disassociate</button></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>

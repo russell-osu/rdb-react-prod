@@ -1,0 +1,76 @@
+<!-- Code has been inspired by the model code in CS 340 (although altered significantly) -->
+    <h1>Add a New Restaurant Review</h1>
+    <form id="add_restaurant_review" action="/restaurant_review" method="post">
+        <fieldset>
+            <label>
+                Restaurant:
+                <select name="restaurant_id">
+                    {{#each restaurant}}
+                    <option value="{{id}}">{{name}}</option>
+                    {{/each}}
+                </select>
+            </label><br>
+            <label>
+                User:
+                <select name="user_id">
+                    {{#each user}}
+                    <option value="{{id}}">{{fname}} {{lname}}</option>
+                    {{/each}}
+                </select>
+            </label><br>
+            <label>
+                Visit:
+                <select name="visit_id">
+                    <option value="NULL">DON'T ASSOCIATE REVIEW WITH VISIT</option>
+                    {{#each visit}}
+                    <option value="{{id}}">{{visit_date}}:  {{restaurant_name}}</option>
+                    {{/each}}
+                </select>
+            </label><br>
+            <fieldset>
+                <legend>Review</legend>
+                <textarea form="add_restaurant_review" name="review" rows="5" cols="80" required>Enter your review here</textarea>
+            </fieldset><br>
+            <input type="submit" value="Submit">
+        </fieldset>
+    </form>
+    <br>
+    <br>
+    <h2>Restaurant Review List</h2>
+
+    <form id='filter_restaurant_reviews' action='' method=''>
+        <fieldset>
+            <label> Filter by restaurant: </label>
+                <select id="restaurant_review_filter" name="restaurant_id">
+                    <option value="all_restaurants">SHOW ALL RESTAURANTS</option>
+                    {{#each restaurant}}
+                    <option value="{{id}}">{{name}}</option>
+                    {{/each}}
+                </select>
+                <input type="button" value="Filter" onclick="filterRestaurantReviewsByRestaurant()">
+        </fieldset>
+    </form><br><br>
+
+
+    <table>
+        <thead>
+            <tr>
+                <th>Restaurant</th>
+                <th>User</th>
+                <th>Visit Date</th>
+                <th>Review</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each restaurant_review}}
+            <tr>
+                <td>{{restaurant_name}}</td>
+                <td>{{fname}} {{lname}}</td>
+                <td>{{visit_date}}</td>
+                <td class="reviewCell">{{review}}</td>
+                <td><button onclick="deleteRestaurantReview({{id}})">Delete</button></td>
+                <!-- <td><button onclick="update_Restaurant_Review({{id}})">Disassociate From Visit</button></td> -->
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>

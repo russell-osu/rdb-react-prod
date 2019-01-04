@@ -1,0 +1,81 @@
+<!-- Code has been inspired by the model code in CS 340 (although altered significantly) -->
+<h1>Restaurant Review Database</h1>
+
+
+<!-- Carousel code courtesy of https://www.w3schools.com/bootstrap/bootstrap_carousel.asp -->
+<!-- Images provided license free from https://www.pexels.com/ -->
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="/hamburger.jpg" alt="hamurger">
+      <div class="carousel-caption">
+        <h3>Hamburger</h3>
+        <p>Let's eat hamburgers!</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <img src="/chicken.jpg" alt="chicken">
+      <div class="carousel-caption">
+        <h3>Chicken</h3>
+        <p>Let's eat chicken!</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <img src="/veggie.jpg" alt="veggies">
+      <div class="carousel-caption">
+        <h3>Veggies</h3>
+        <p>Let's eat veggies!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+<br><br>
+
+<div id="underCarousel">
+<h3>Database Info</h3>
+<div id="scrollbox">
+<p>This database will allow multiple users to capture information about restaurants and restaurant visits that they have made. Users will be able to provide a comprehensive review for a restaurant, which is the expectation for a restaurant review tool; however, they will also be able to review individual menu items from a restaurant. To be clear, users will be able to write two, distinct types of review:</p> 
+
+<ol>
+	<li>A comprehensive review intended to capture the user’s overall evaluation of a particular restaurant</li>
+	<li>A review of a particular menu item at a given restaurant</li>
+</ol>
+
+<p>Of course, a user could optionally include information about specific menu items in their comprehensive review. However, my family and I often find ourselves making informal reviews about a specific item at a favorite restaurant and would like a tool to weigh in on that item alone and be able to reference it later.</p>
+
+<p>	This database will also allow users to enter information about a specific visit to a restaurant. Reviews of both types can optionally reference this visit. The intent here is to allow a user to track their experience with a certain restaurant (or a certain menu item) over time.</p>
+</div>
+
+
+<!-- Download button code inspired by https://stackoverflow.com/questions/11620698/how-to-trigger-a-file-download-when-clicking-an-html-button-or-javascript -->
+<!-- <form method="get" action="/static/hamburger.jpg">
+   <button type="submit">Download 1</button>
+</form> --> 
+<br>
+<p><strong>Download a pdf of the database ERD:</strong> <a href="/db_erd.pdf" download="db_erd.pdf"><button type="button">Download</button></a></p>
+
+<br>
+
+</div>

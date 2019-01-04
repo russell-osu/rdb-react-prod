@@ -1,0 +1,27 @@
+<!-- Code has been inspired by the model code in CS 340 (although altered significantly) -->
+    <h1>Add a New Cuisine</h1>
+    <form id="add_cuisine" action="/cuisine" method="post">
+        <fieldset>
+            <label>Cuisine name: <input type="text" name="cuisine_name" required></label><br>
+            <input type="submit" value="Submit">
+        </fieldset>
+    </form>
+    <br>
+    <br>
+    <h2>Cuisine List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Cuisine</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each cuisine}}
+            <tr>
+                <td>{{name}}</td>
+                <td><button onclick="deleteCuisine({{id}})">Delete</button></td>
+                <!-- <td><button onclick="update_Cuisine({{id}})">Update</button></td> -->
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>

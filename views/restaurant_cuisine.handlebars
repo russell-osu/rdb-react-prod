@@ -1,0 +1,43 @@
+<!-- Code has been inspired by the model code in CS 340 (although altered significantly) -->
+    <h1>Associate a Restaurant with a Cuisine</h1>
+    <form id="add_restaurant_cuisine" action="/restaurant_cuisine" method="post">
+        <fieldset>
+            <label>
+                Restaurant:
+                <select name="restaurant_id">
+                    {{#each restaurant}}
+                    <option value="{{id}}">{{restaurant_name}}</option>
+                    {{/each}}
+                </select>
+            </label><br>
+            <label>
+                Cuisine:
+                <select name="cuisine_id">
+                    {{#each cuisine}}
+                    <option value="{{id}}">{{cuisine_name}}</option>
+                    {{/each}}
+                </select>
+            </label><br>
+            <input type="submit" value="Submit">
+        </fieldset>
+    </form>
+    <br>
+    <br>
+    <h2>Restaurant Cuisine List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Restaurant</th>
+                <th>Cusine Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each restaurant_cuisine}}
+            <tr>
+                <td>{{restaurant_name}}</td>
+                <td>{{cuisine_name}}</td>
+                <td><button onclick="deleteRestaurantCuisine({{restaurant_id}}, {{cuisine_id}})">Disassociate</button></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>

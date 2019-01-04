@@ -1,0 +1,41 @@
+<!-- Code has been inspired by the model code in CS 340 (although altered significantly) -->
+    <h1>Add a New Restaurant</h1>
+    <form id="add_restaurant" action="/restaurant" method="post">
+        <fieldset>
+            <label>Restaurant name: <input type="text" name="rest_name" required></label><br>
+            <label>Street address: <input type="text" name="street_address" required></label><br>
+            <label>City: <input type="text" name="city" required></label><br>
+            <label>State: <input type="text" name="state" required></label><br>
+            <label>Zip: <input type="number" name="zip" required></label><br>
+            <input type="submit" value="Submit">
+        </fieldset>
+    </form>
+    <br>
+    <br>
+    <h2>Restaurant List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each restaurant}}
+            <tr>
+                <td>{{name}}</td>
+                <td>{{street_address}}</td>
+                <td>{{city}}</td>
+                <td>{{state}}</td>
+                <td>{{zip}}</td>
+                <td><button onclick="deleteRestaurant({{id}})">Delete</button></td>
+                <!-- <td><a href="restaurant_update.html">Update</a></td> -->
+                <td><a href="/restaurant/{{id}}"><button type="button">Update</button></a></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+

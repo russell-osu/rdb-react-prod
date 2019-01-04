@@ -1,0 +1,63 @@
+<!-- Code has been inspired by the model code in CS 340 (although altered significantly) -->
+    <h1>Add a New Menu Item Review</h1>
+    <form id="add_menu_item_review" action="/menu_item_review" method="post">
+        <fieldset>
+            <label>
+                Menu Item:
+                <select name="menu_item_id">
+                    {{#each menu_item}}
+                    <option value="{{id}}">{{restaurant_name}}:  {{menu_item_name}}</option>
+                    {{/each}}
+                </select>
+            </label><br>
+            <label>
+                User:
+                <select name="user_id">
+                    {{#each user}}
+                    <option value="{{id}}">{{fname}} {{lname}}</option>
+                    {{/each}}
+                </select>
+            </label><br>
+            <label>
+                Visit:
+                <select name="visit_id">
+                    <option value="NULL">DON'T ASSOCIATE REVIEW WITH VISIT</option>
+                    {{#each visit}}
+                    <option value="{{id}}">{{visit_date}}:  {{restaurant_name}}</option>
+                    {{/each}}
+                </select>
+            </label><br>
+            <fieldset>
+                <legend>Review</legend>
+                <textarea form="add_menu_item_review" name="review" rows="5" cols="80" required>Enter your review here</textarea>
+            </fieldset><br>
+            <input type="submit" value="Submit">
+        </fieldset>
+    </form>
+    <br>
+    <br>
+    <h2>Menu Item Review List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Menu Item</th>
+                <th>Restaurant</th>
+                <th>User</th>
+                <th>Visit Date</th>
+                <th>Review</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each menu_item_review}}
+            <tr>
+                <td>{{menu_item_name}}</td>
+                <td>{{restaurant_name}}</td>
+                <td>{{fname}} {{lname}}</td>
+                <td>{{visit_date}}</td>
+                <td class="reviewCell">{{review}}</td>
+                <td><button onclick="deleteMenuItemReview({{id}})">Delete</button></td>
+                <!-- <td><button onclick="disassociate_visit_from_Menu_Item_Review({{id}})">Disassociate Visit</button></td> -->
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>

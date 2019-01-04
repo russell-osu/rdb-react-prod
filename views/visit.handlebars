@@ -1,0 +1,54 @@
+<!-- Code has been inspired by the model code in CS 340 (although altered significantly) -->
+    <h1>Add a New Visit</h1>
+    <form id="add_visit" action="/visit" method="post">
+        <fieldset>
+            <label>
+                Restaurant:
+                <select name="restaurant_id">
+                    {{#each restaurant}}
+                    <option value="{{id}}">{{name}}</option>
+                    {{/each}}
+                </select>
+            </label><br>
+            <label>Date: <input type="date" name="visit_date" required></label><br>
+            <label>Price: <input type="number" name="price" step="0.01" min="0" required></label><br>
+            <label>
+                Meal Type:
+                <select name="meal_type">
+                    <option value="breakfast">breakfast</option>
+                    <option value="brunch">brunch</option>
+                    <option value="lunch">lunch</option>
+                    <option value="dinner">dinner</option>
+                    <option value="dessert">dessert</option>
+                    <option value="other">other</option>
+                </select>
+            </label><br>
+            <input type="submit" value="Submit">
+        </fieldset>
+    </form>
+
+    <br>
+    <br>
+    <h2>Visit List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Restaurant</th>
+                <th>Date</th>
+                <th>Price</th>
+                <th>Meal Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each visit}}
+            <tr>
+                <td>{{restaurant_name}}</td>
+                <td>{{visit_date}}</td>
+                <td>{{price}}</td>
+                <td>{{meal_type}}</td>
+                <td><button onclick="deleteVisit({{id}})">Delete</button></td>
+                <!-- <td><button onclick="update_Visit({{id}})">Update</button></td> -->
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>

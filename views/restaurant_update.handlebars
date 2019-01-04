@@ -1,0 +1,15 @@
+
+<h1>Update {{restaurant.name}}</h1>
+
+
+<form id="update-restaurant" action="/restaurant" method="post">
+        <label>Restaurant name: <input type="text" name="rest_name" value="{{restaurant.name}}" required></label><br>
+        <label>Street address: <input type="text" name="street_address" value="{{restaurant.street_address}}" required></label><br>
+        <label>City: <input type="text" name="city" value="{{restaurant.city}}" required></label><br>
+        <label>State: <input type="text" name="state" value="{{restaurant.state}}" required></label><br>
+        <label>Zip: <input type="number" name="zip" value="{{restaurant.zip}}" required></label><br>
+</form>
+<br><br>
+
+<button onclick="updateRestaurant({{restaurant.id}})">Update</button>
+
