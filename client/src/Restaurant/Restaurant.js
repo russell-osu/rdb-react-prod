@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Table from './Table';
-import RestForm from './RestForm';
+import RestForm from './RestForm';  
 
 
 class Restaurant extends Component {
