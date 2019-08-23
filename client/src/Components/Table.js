@@ -36,7 +36,7 @@ const TableBody = props => {
 
 
 		const tdata = Object.keys(obj).map( key => {
-			if(key != "id"){//ensure id property is not displayed
+			if(key !== "id"){//ensure id property is not displayed
 				return (
 				<td>{obj[key]}</td>
 				);
