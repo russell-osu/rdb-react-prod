@@ -22,10 +22,34 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>Restaurant Reviews</title>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+
+    <link rel="stylesheet" href="/menu.css" type="text/css">
+
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    
+    <table>
+      <tbody>
+          <tr id="test">
+              <td class="menucell" id="home_page">Home</td>
+              <td class="menucell" id="restaurant_page">Restaurant</td>
+              <td class="menucell" id="user_page">User</td>
+              <td class="menucell" id="visit_page">Visit</td>
+              <td class="menucell" id="user_visit_page">User Visit</td>
+              <td class="menucell" id="restaurant_review_page">Restaurant Review</td>
+              <td class="menucell" id="menu_item_page">Menu Item</td>
+              <td class="menucell" id="menu_item_review_page">Menu Item Review</td>
+              <td class="menucell" id="cuisine_page">Cuisine</td>
+              <td class="menucell" id="restaurant_cuisine_page">Restaurant Cuisine</td>
+          </tr>
+      </tbody>
+  </table>
+
     <div id="root"></div>
     <!--
       This HTML file is a template.
@@ -37,5 +61,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script src="/menubar.js"></script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-table, th, td {
+/* table, th, td {
 	border: 1px solid;
 }
 
@@ -77,11 +77,16 @@ body {
 	padding: 4px;
 
 
-}
+} */
 
 .menucell {
 
-	width: 7em;
+    width: 7em;
+    color: white;
+    background-color: #87c466;
+    text-align: center;
+    border: 1px solid;
+    padding: 5px;
 
 }
 
@@ -95,7 +100,7 @@ body {
 	/*text-decoration: none;*/
 }
 
-strong {
+/* strong {
 	font-weight: bold;
 	font-style: italic;
 }
@@ -121,8 +126,7 @@ form > fieldset {
 	border-color: #87c466;
 	padding: 15px;
 	width: 60%;
-}
-
+} */
 
 
 

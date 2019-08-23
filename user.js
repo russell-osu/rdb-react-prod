@@ -24,13 +24,14 @@ module.exports = function(){
     router.get('/', function(req, res){
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["deleterecords.js"];
+        //context.jsscripts = ["deleterecords.js"];
         var mysql = req.app.get('mysql');
         getUser(res, mysql, context, complete);
         function complete(){
             callbackCount++; 
             if(callbackCount >= 1){
-                res.render('user', context);
+                //res.render('user', context);
+                res.json(context);
             }
 
         }
@@ -51,7 +52,8 @@ module.exports = function(){
                 res.write(JSON.stringify(error));
                 res.end();
             }else{
-                res.redirect('/user');
+                //res.redirect('/user');
+                res.status(201).end();
             }
         });
     });

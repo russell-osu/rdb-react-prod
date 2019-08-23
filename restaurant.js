@@ -21,6 +21,18 @@ module.exports = function(){
     }
 
 
+    function getRestaurantNames(res, mysql, context, complete){
+        mysql.pool.query("SELECT id, name FROM restaurant ORDER BY name ASC", function(error, results, fields){
+            if(error){
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.restaurantNames  = results;
+            complete();
+        });
+    }
+
+
     function getRestaurantForUpdate(res, mysql, context, id, complete){
         var sql = "SELECT id, name, street_address, city, state, zip FROM restaurant WHERE id = ?";
         var inserts = [id];
@@ -56,6 +68,25 @@ module.exports = function(){
     });
 
 
+    /*Return all restaurant names (alphabetized) with id for dropdown lists*/
+
+    router.get('/names', function(req, res){
+        var callbackCount = 0;
+        var context = {};
+        var mysql = req.app.get('mysql');
+        getRestaurantNames(res, mysql, context, complete);
+        function complete(){
+            callbackCount++; 
+            if(callbackCount >= 1){
+                console.log(JSON.stringify(context));
+                res.json(context);
+            }
+
+        }
+    });
+
+
+
     /* Adds a restaurant, redirects to the restaurant page after adding */
 
     router.post('/', function(req, res){
@@ -72,7 +103,8 @@ module.exports = function(){
                 res.end();
             }else{
                 //res.redirect('/restaurant');
-                res.json("OK");
+                //res.json("OK");
+                res.status(201).end();
             }
         });
     });

@@ -5,16 +5,16 @@ module.exports = function(){
     var router = express.Router();
     
 
-    function getRestaurant(res, mysql, context, complete){
-        mysql.pool.query("SELECT id, name FROM restaurant ORDER BY name ASC", function(error, results, fields){
-            if(error){
-                res.write(JSON.stringify(error));
-                res.end();
-            }
-            context.restaurant  = results;
-            complete();
-        });
-    }
+    // function getRestaurant(res, mysql, context, complete){
+    //     mysql.pool.query("SELECT id, name FROM restaurant ORDER BY name ASC", function(error, results, fields){
+    //         if(error){
+    //             res.write(JSON.stringify(error));
+    //             res.end();
+    //         }
+    //         context.restaurant  = results;
+    //         complete();
+    //     });
+    // }
 
 
     function getVisit(res, mysql, context, complete){
@@ -37,14 +37,15 @@ module.exports = function(){
     router.get('/', function(req, res){
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["deleterecords.js"];
+        //context.jsscripts = ["deleterecords.js"];
         var mysql = req.app.get('mysql');
         getVisit(res, mysql, context, complete);
-        getRestaurant(res, mysql, context, complete);
+        //getRestaurant(res, mysql, context, complete);
         function complete(){
             callbackCount++; 
-            if(callbackCount >= 2){
-                res.render('visit', context);
+            if(callbackCount >= 1){
+                //res.render('visit', context);
+                res.json(context);
             }
 
         }
@@ -65,7 +66,8 @@ module.exports = function(){
                 res.write(JSON.stringify(error));
                 res.end();
             }else{
-                res.redirect('/visit');
+                //res.redirect('/visit');
+                res.status(201).end();
             }
         });
     });

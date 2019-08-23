@@ -1,43 +1,40 @@
 import React, { Component } from 'react';
-import Table from './Table';
-import RestForm from './RestForm';  
+// import Table from './Table';
+// import RestForm from './RestForm';  
 
 
-class Restaurant extends Component {
+class User extends Component {
 
   state = {
-    restaurants: []
+    users: []
   };
 
   componentDidMount() {
     this.loadTable();
   }
 
-  loadTable = () => {
-    return fetch('/restaurant', {
+  loadTable = async () => {
+    const result = await fetch('/user', {
       accept: 'application/json',
-
-    }).then(result => result.json())
-      .then(result => {
-        this.setState({
-          restaurants: [...result.restaurant]
-        })
-
-      });
+    });
+    const result_1 = await result.json();
+    this.setState({
+      users: [...result_1.user]
+    });
   }
 
   deleteRowOnClient = index => {
-    const { restaurants } = this.state;
+    const { users } = this.state;
 
     this.setState({
-      restaurants: restaurants.filter((restaurant, i) => {
+      users: users.filter((user, i) => {
         return i !== index;
       })
     });
   }
 
-  removeRestaurant = (id, index) => {
-    return fetch('/restaurant/' + id, {
+  removeUser = (id, index) => {
+    return fetch('/user/' + id, {
       method: 'delete'
     }).then(response => response.json())
       .then(response => console.log(JSON.stringify(response)))
@@ -88,4 +85,4 @@ class Restaurant extends Component {
   }
 }
 
-export default Restaurant;
+export default User;

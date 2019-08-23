@@ -25,9 +25,9 @@ app.set('mysql', mysql);
 
 app.use(express.static('public'));
 
-app.get('/', function(req,res){
-	res.render('home');
-})
+// app.get('/', function(req,res){
+// 	res.render('home');
+// })
 
 
 app.use('/restaurant', require('./restaurant.js'));
