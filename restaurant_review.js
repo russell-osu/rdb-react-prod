@@ -18,7 +18,7 @@ module.exports = function(){
 
 
     function getUser(res, mysql, context, complete){
-        mysql.pool.query("SELECT id, fname, lname FROM user ORDER BY fname ASC", function(error, results, fields){
+        mysql.pool.query("SELECT id, fname, lname FROM user ORDER BY lname ASC", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
@@ -47,7 +47,8 @@ module.exports = function(){
                             AS visit_date, RR.review FROM restaurant_review RR \
                             LEFT JOIN visit V on V.id = RR.visit_id \
                             LEFT JOIN user U ON U.id = RR.user_id \
-                            INNER JOIN restaurant R ON R.id = RR.restaurant_id",
+                            INNER JOIN restaurant R ON R.id = RR.restaurant_id \
+                            ORDER BY R.name ASC",
                             
             function(error, results, fields){
                 if(error){
@@ -90,13 +91,14 @@ module.exports = function(){
         context.jsscripts = ["deleterecords.js","filterrecords.js"];
         var mysql = req.app.get('mysql');
         getRestaurantReview(res, mysql, context, complete);
-        getRestaurant(res, mysql, context, complete);
-        getUser(res, mysql, context, complete);
-        getVisit(res, mysql, context, complete);
+        //getRestaurant(res, mysql, context, complete);
+        //getUser(res, mysql, context, complete);
+        //getVisit(res, mysql, context, complete);
         function complete(){
             callbackCount++; 
-            if(callbackCount >= 4){
-                res.render('restaurant_review', context);
+            if(callbackCount >= 1){
+                //res.render('restaurant_review', context);
+                res.json(context);
             }
 
         }

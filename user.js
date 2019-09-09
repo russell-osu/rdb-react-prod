@@ -7,7 +7,7 @@ module.exports = function(){
 
 
     function getUser(res, mysql, context, complete){
-        mysql.pool.query("SELECT id, fname, lname FROM user", 
+        mysql.pool.query("SELECT id, fname, lname FROM user ORDER BY lname ASC", 
             function(error, results, fields){
                 if(error){
                     res.write(JSON.stringify(error));

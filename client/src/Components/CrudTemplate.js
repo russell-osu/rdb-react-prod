@@ -65,7 +65,8 @@ class CrudTemplate extends Component {
       },
       body: JSON.stringify(record)
     })
-    .then(this.addRowOnClient(record))
+    //.then(this.addRowOnClient(record))
+    .then(setTimeout(() => {this.loadTable();}, 500 ))
     .catch(error => console.error(error));
   }
 
@@ -78,6 +79,7 @@ class CrudTemplate extends Component {
           <div className = "container">
 
               <Form
+                entity = {this.props.entity}
                 handleSubmit = {this.handleSubmit}
                 entityFields = {this.props.entityFields}
                 fieldLabels = {this.props.fieldLabels}

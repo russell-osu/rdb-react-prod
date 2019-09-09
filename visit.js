@@ -19,7 +19,7 @@ module.exports = function(){
 
     function getVisit(res, mysql, context, complete){
         mysql.pool.query("SELECT V.id, R.name AS restaurant_name, DATE_FORMAT(V.visit_date, '%m/%d/%y') \
-                            AS visit_date, V.price, V.meal_type FROM visit V \
+                            AS visit_date, FORMAT(V.price, 2), V.meal_type FROM visit V \
                             INNER JOIN restaurant R ON R.id = V.restaurant_id ORDER BY R.name ASC", 
             function(error, results, fields){
                 if(error){

@@ -50,15 +50,12 @@ module.exports = function(){
     router.get('/', function(req, res){
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["deleterecords.js"]; //,"filterrestaurant_review.js","searchrestaurant_review.js"];
         var mysql = req.app.get('mysql');
         getRestaurantCuisine(res, mysql, context, complete);
-        getRestaurant(res, mysql, context, complete);
-        getCuisine(res, mysql, context, complete);
         function complete(){
             callbackCount++; 
-            if(callbackCount >= 3){
-                res.render('restaurant_cuisine', context);
+            if(callbackCount >= 1){
+                res.json(context);
             }
 
         }

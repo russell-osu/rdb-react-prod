@@ -6,7 +6,7 @@ module.exports = function(){
 
 
     function getCuisine(res, mysql, context, complete){
-        mysql.pool.query("SELECT id, name FROM cuisine", 
+        mysql.pool.query("SELECT id, name FROM cuisine ORDER BY name ASC", 
             function(error, results, fields){
                 if(error){
                     res.write(JSON.stringify(error));
@@ -23,13 +23,12 @@ module.exports = function(){
     router.get('/', function(req, res){
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["deleterecords.js"];
         var mysql = req.app.get('mysql');
         getCuisine(res, mysql, context, complete);
         function complete(){
             callbackCount++; 
             if(callbackCount >= 1){
-                res.render('cuisine', context);
+                res.json(context);
             }
 
         }

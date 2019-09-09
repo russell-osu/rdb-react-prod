@@ -47,7 +47,8 @@ module.exports = function(){
                             LEFT JOIN visit V on V.id = MIR.visit_id \
                             LEFT JOIN user U ON U.id = MIR.user_id \
                             INNER JOIN menu_item MI ON MI.id = MIR.menu_item_id \
-                            INNER JOIN restaurant R ON R.id = MI.restaurant_id", 
+                            INNER JOIN restaurant R ON R.id = MI.restaurant_id \
+                            ORDER BY R.name ASC", 
             function(error, results, fields){
                 if(error){
                     res.write(JSON.stringify(error));
@@ -64,16 +65,17 @@ module.exports = function(){
     router.get('/', function(req, res){
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["deleterecords.js"];
+        //context.jsscripts = ["deleterecords.js"];
         var mysql = req.app.get('mysql');
         getMenuItemReview(res, mysql, context, complete);
-        getMenuItem(res, mysql, context, complete);
-        getUser(res, mysql, context, complete);
-        getVisit(res, mysql, context, complete);
+        // getMenuItem(res, mysql, context, complete);
+        // getUser(res, mysql, context, complete);
+        // getVisit(res, mysql, context, complete);
         function complete(){
             callbackCount++; 
-            if(callbackCount >= 4){
-                res.render('menu_item_review', context);
+            if(callbackCount >= 1){
+                //res.render('menu_item_review', context);
+                res.json(context);
             }
 
         }

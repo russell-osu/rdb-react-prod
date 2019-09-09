@@ -8,7 +8,7 @@ module.exports = function(){
 
 
     function getRestaurant(res, mysql, context, complete){
-        mysql.pool.query("SELECT id, name, street_address, city, state, zip FROM restaurant", function(error, results, fields){
+        mysql.pool.query("SELECT id, name, street_address, city, state, zip FROM restaurant ORDER BY name ASC", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
@@ -59,7 +59,7 @@ module.exports = function(){
         function complete(){
             callbackCount++; 
             if(callbackCount >= 1){
-                console.log(JSON.stringify(context));
+                //console.log(JSON.stringify(context));
                 //res.render('restaurant', context);
                 res.json(context);
             }
@@ -78,7 +78,7 @@ module.exports = function(){
         function complete(){
             callbackCount++; 
             if(callbackCount >= 1){
-                console.log(JSON.stringify(context));
+                //console.log(JSON.stringify(context));
                 res.json(context);
             }
 

@@ -1,8 +1,7 @@
 // Code has been inspired by the model code in CS 340 (although altered significantly)
 
 /*  
-    Uses express, dbcon for database connection, body parser to parse form data 
-    handlebars for HTML templates.  
+    Uses express, dbcon for database connection, body parser to parse form data  
 */
 
 var express = require('express');
@@ -10,24 +9,19 @@ var mysql = require('./dbcon.js');
 var bodyParser = require('body-parser');
 
 var app = express();
-//var handlebars = require('express-handlebars').create({defaultLayout:'main'});
-
-//app.engine('handlebars', handlebars.engine);
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 
-
-//app.set('view engine', 'handlebars');
-//app.set('port', process.argv[2]);
 app.set("port", process.env.PORT || 3001);
 app.set('mysql', mysql);
 
 app.use(express.static('public'));
+app.use( express.static( `${__dirname}/build` ) );
 
-// app.get('/', function(req,res){
-// 	res.render('home');
-// })
+
+
+
 
 
 app.use('/restaurant', require('./restaurant.js'));
@@ -40,8 +34,8 @@ app.use('/cuisine', require('./cuisine.js'));
 app.use('/restaurant_cuisine', require('./restaurant_cuisine.js'));
 app.use('/user_visit', require('./user_visit.js'));
 
-//app.use('/', express.static('public'));
-//app.use('/static', express.static('public'));
+const path = require('path');
+app.get('*', (req, res)=>{  res.sendFile(path.join(__dirname, './build/index.html'));})
 
 
 app.use(function(req,res){
@@ -54,6 +48,8 @@ app.use(function(err, req, res, next){
   res.status(500);
   res.render('500');
 });
+
+
 
 app.listen(app.get('port'), function(){
   console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');

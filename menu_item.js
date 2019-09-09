@@ -3,23 +3,13 @@
 module.exports = function(){
     var express = require('express');
     var router = express.Router();
-    
 
-    function getRestaurant(res, mysql, context, complete){
-        mysql.pool.query("SELECT id, name FROM restaurant ORDER BY name ASC", function(error, results, fields){
-            if(error){
-                res.write(JSON.stringify(error));
-                res.end();
-            }
-            context.restaurant  = results;
-            complete();
-        });
-    }
 
 
     function getMenuItem(res, mysql, context, complete){
-        mysql.pool.query("SELECT MI.id, MI.name, R.name AS restaurant_name, MI.price, MI.description \
-                            FROM menu_item MI INNER JOIN restaurant R ON R.id = MI.restaurant_id", 
+        mysql.pool.query("SELECT MI.id, R.name AS restaurant_name, MI.name, FORMAT(MI.price, 2), MI.description \
+                            FROM menu_item MI INNER JOIN restaurant R ON R.id = MI.restaurant_id \
+                            ORDER BY R.name ASC", 
             function(error, results, fields){
                 if(error){
                     res.write(JSON.stringify(error));
@@ -30,20 +20,48 @@ module.exports = function(){
             });
     }
 
+    function getMenuItemNames(res, mysql, context, complete){
+        mysql.pool.query("SELECT MI.id, R.name AS restaurant_name, MI.name AS menu_item_name FROM menu_item MI \
+                            INNER JOIN restaurant R ON R.id = MI.restaurant_id ORDER BY R.name ASC", function(error, results, fields){
+            if(error){
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.menu_item = results;
+            complete();
+        });
+    }
+
 
     /*Display all menu items. Requires web based javascript to delete with AJAX*/
 
     router.get('/', function(req, res){
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["deleterecords.js"];
+        //context.jsscripts = ["deleterecords.js"];
         var mysql = req.app.get('mysql');
         getMenuItem(res, mysql, context, complete);
-        getRestaurant(res, mysql, context, complete);
         function complete(){
             callbackCount++; 
-            if(callbackCount >= 2){
-                res.render('menu_item', context);
+            if(callbackCount >= 1){
+                res.json(context);
+            }
+
+        }
+    });
+
+    /*Returns menu items with assoc restaurants*/
+
+    router.get('/names', function(req, res){
+        var callbackCount = 0;
+        var context = {};
+        //context.jsscripts = ["deleterecords.js"];
+        var mysql = req.app.get('mysql');
+        getMenuItemNames(res, mysql, context, complete);
+        function complete(){
+            callbackCount++; 
+            if(callbackCount >= 1){
+                res.json(context);
             }
 
         }
@@ -57,7 +75,7 @@ module.exports = function(){
         //console.log(req.body)
         var mysql = req.app.get('mysql');
         var sql = "INSERT INTO menu_item (name, restaurant_id, price, description) VALUES (?,?,?,?)";
-        var inserts = [req.body.MI_name, req.body.restaurant_id, req.body.price, req.body.description];
+        var inserts = [req.body.menu_item_name, req.body.restaurant_id, req.body.price, req.body.description];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
             if(error){
                 console.log(JSON.stringify(error))
