@@ -69,7 +69,7 @@ const routing = (
 					<CrudTemplate {...props} 
 							endpoint = {"/restaurant_review/restaurant_review"} 
 							entity = {"restaurant_review"}
-							tableHeaders = {["Restaurant", "User First", "User Last", "Visit Date", "Review"]}
+							tableHeaders = {["Restaurant", "User First", "User Last", "Review"]}
 							fieldLabels = {[]}
 							entityFields = {{ restaurant_id: '', user_id: '', review: ''}}
 							fieldNames = {[]}
@@ -101,7 +101,7 @@ const routing = (
 					<CrudTemplate {...props} 
 							endpoint = {"/restaurant_review/menu_item_review"} 
 							entity = {"menu_item_review"}
-							tableHeaders = {["Menu Item", "Restaurant", "User First", "User Last", "Visit Date", "Review"]}
+							tableHeaders = {["Menu Item", "Restaurant", "User First", "User Last", "Review"]}
 							fieldLabels = {[]}
 							entityFields = {{ menu_item_id: '', restaurant_id: '', user_id: '', review: ''}}
 							fieldNames = {[]}
