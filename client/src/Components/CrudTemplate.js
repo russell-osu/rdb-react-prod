@@ -58,7 +58,7 @@ class CrudTemplate extends Component {
   }
 
   fetchRestaurantNames = async () => {
-		const result = await fetch("/restaurant_review_dev/restaurant/names", {
+		const result = await fetch("/restaurant_review/restaurant/names", {
 		  accept: 'application/json',
 		});
 		const result_1 = await result.json();
@@ -69,7 +69,7 @@ class CrudTemplate extends Component {
   }
   
   fetchUserNames = async () => {
-		const result = await fetch("/restaurant_review_dev/user", {
+		const result = await fetch("/restaurant_review/user", {
 		  accept: 'application/json',
 		});
 		const result_1 = await result.json();
@@ -80,7 +80,7 @@ class CrudTemplate extends Component {
 	}
 
 	fetchMenuItemNames = async () => {
-		const result = await fetch("/restaurant_review_dev/menu_item/names", {
+		const result = await fetch("/restaurant_review/menu_item/names", {
 		  accept: 'application/json',
 		});
 		const result_1 = await result.json();
@@ -91,7 +91,7 @@ class CrudTemplate extends Component {
 	}
 
 	fetchCuisineNames = async () => {
-		const result = await fetch("/restaurant_review_dev/cuisine", {
+		const result = await fetch("/restaurant_review/cuisine", {
 		  accept: 'application/json',
 		});
         const result_1 = await result.json();

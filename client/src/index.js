@@ -6,7 +6,7 @@ import CrudTemplate from './Components/CrudTemplate';
 
 
 const routing = (
-	<Router  basename="/restaurant_review_dev"  >
+	<Router  basename="/restaurant_review"  >
 		<div>
 		{/* <ul>
 			<li>
@@ -19,7 +19,7 @@ const routing = (
 				//https://tylermcginnis.com/react-router-pass-props-to-components/
 				render ={(props) => 
 					<CrudTemplate {...props} 
-							endpoint = {"/restaurant_review_dev/restaurant"} 
+							endpoint = {"/restaurant_review/restaurant"} 
 							entity = {"restaurant"}
 							tableHeaders = {["Name", "Street Address", "City", "State", "Zip"]}
 							fieldLabels = {["Name", "Street Address", "City", "State", "Zip"]}
@@ -35,7 +35,7 @@ const routing = (
 				//https://tylermcginnis.com/react-router-pass-props-to-components/
 				render ={(props) => 
 					<CrudTemplate {...props} 
-							endpoint = {"/restaurant_review_dev/user"} 
+							endpoint = {"/restaurant_review/user"} 
 							entity = {"user"}
 							tableHeaders = {["First Name", "Last Name"]}
 							fieldLabels = {["First Name", "Last Name"]}
@@ -51,7 +51,7 @@ const routing = (
 				//https://tylermcginnis.com/react-router-pass-props-to-components/
 				render ={(props) => 
 					<CrudTemplate {...props} 
-							endpoint = {"/restaurant_review_dev/visit"} 
+							endpoint = {"/restaurant_review/visit"} 
 							entity = {"visit"}
 							tableHeaders = {["Restaurant", "Date", "Price", "Meal Type"]}
 							fieldLabels = {["Date (yyyy-mm-dd)", "Price", "Meal Type"]}
@@ -67,7 +67,7 @@ const routing = (
 				//https://tylermcginnis.com/react-router-pass-props-to-components/
 				render ={(props) => 
 					<CrudTemplate {...props} 
-							endpoint = {"/restaurant_review_dev/restaurant_review"} 
+							endpoint = {"/restaurant_review/restaurant_review"} 
 							entity = {"restaurant_review"}
 							tableHeaders = {["Restaurant", "User First", "User Last", "Review"]}
 							fieldLabels = {[]}
@@ -83,7 +83,7 @@ const routing = (
 				//https://tylermcginnis.com/react-router-pass-props-to-components/
 				render ={(props) => 
 					<CrudTemplate {...props} 
-							endpoint = {"/restaurant_review_dev/menu_item"} 
+							endpoint = {"/restaurant_review/menu_item"} 
 							entity = {"menu_item"}
 							tableHeaders = {["Restaurant", "Menu Item", "Price", "Description"]}
 							fieldLabels = {["Menu Item", "Price"]}
@@ -99,7 +99,7 @@ const routing = (
 				//https://tylermcginnis.com/react-router-pass-props-to-components/
 				render ={(props) => 
 					<CrudTemplate {...props} 
-							endpoint = {"/restaurant_review_dev/menu_item_review"} 
+							endpoint = {"/restaurant_review/menu_item_review"} 
 							entity = {"menu_item_review"}
 							tableHeaders = {["Menu Item", "Restaurant", "User First", "User Last", "Review"]}
 							fieldLabels = {[]}
@@ -116,7 +116,7 @@ const routing = (
 				//https://tylermcginnis.com/react-router-pass-props-to-components/
 				render ={(props) => 
 					<CrudTemplate {...props} 
-							endpoint = {"/restaurant_review_dev/cuisine"} 
+							endpoint = {"/restaurant_review/cuisine"} 
 							entity = {"cuisine"}
 							tableHeaders = {["Cuisine"]}
 							fieldLabels = {["Cuisine Name"]}
@@ -132,7 +132,7 @@ const routing = (
 				//https://tylermcginnis.com/react-router-pass-props-to-components/
 				render ={(props) => 
 					<CrudTemplate {...props} 
-							endpoint = {"/restaurant_review_dev/restaurant_cuisine"} 
+							endpoint = {"/restaurant_review/restaurant_cuisine"} 
 							entity = {"restaurant_cuisine"}
 							tableHeaders = {["Restaurant", "Cuisine"]}
 							fieldLabels = {[]}
