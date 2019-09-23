@@ -153,7 +153,7 @@ module.exports = function(){
         //console.log(req.body)
         //console.log(req.params.id)
         var sql = "UPDATE restaurant SET name=?, street_address=?, city=?, state=?, zip=? WHERE id=?";
-        var inserts = [req.body.rest_name, req.body.street_address, req.body.city, req.body.state, req.body.zip, req.params.id];
+        var inserts = [req.body.name, req.body.street_address, req.body.city, req.body.state, req.body.zip, req.params.id];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
             if(error){
                 console.log(error)

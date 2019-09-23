@@ -63,11 +63,11 @@ const routing = (
 			/>
 
 			<Route 
-				path="/restaurant_review_dev_pg"
+				path="/restaurant_review_pg"
 				//https://tylermcginnis.com/react-router-pass-props-to-components/
 				render ={(props) => 
 					<CrudTemplate {...props} 
-							endpoint = {"/restaurant_review_dev/restaurant_review_dev"} 
+							endpoint = {"/restaurant_review_dev/restaurant_review"} 
 							entity = {"restaurant_review"}
 							tableHeaders = {["Restaurant", "User First", "User Last", "Review"]}
 							fieldLabels = {[]}

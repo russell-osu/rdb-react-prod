@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:3001/",
-  "homepage": "http://http://russellmoon.org/restaurant_review",
+  "homepage": "http://http://russellmoon.org/restaurant_review_dev",
   "dependencies": {
     "react": "^16.7.0",
     "react-dom": "^16.7.0",

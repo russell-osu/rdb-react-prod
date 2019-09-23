@@ -151,6 +151,25 @@ module.exports = function(){
         });
     });
 
+    /* The URI that update data is sent to in order to update a rest review */
+
+    router.put('/:id', function(req, res){
+        var mysql = req.app.get('mysql');
+        var sql = "UPDATE restaurant_review SET restaurant_id=?, user_id=?, review=? WHERE id=?";
+        var inserts = [req.body.restaurant_id, req.body.user_id, req.body.review, req.params.id];
+        console.log(inserts);
+        sql = mysql.pool.query(sql,inserts,function(error, results, fields){
+            if(error){
+                console.log(error)
+                res.write(JSON.stringify(error));
+                res.end();
+            }else{
+                res.status(200);
+                res.end();
+            }
+        });
+    });
+
 
     /* Route to delete a restaurant review, simply returns a 202 upon success. Ajax will handle this. */
 

@@ -59,6 +59,25 @@ module.exports = function(){
     });
 
 
+       /* The URI that update data is sent to in order to update a user */
+
+    router.put('/:id', function(req, res){
+        var mysql = req.app.get('mysql');
+        var sql = "UPDATE user SET fname=?, lname=? WHERE id=?";
+        var inserts = [req.body.fname, req.body.lname, req.params.id];
+        sql = mysql.pool.query(sql,inserts,function(error, results, fields){
+            if(error){
+                console.log(error)
+                res.write(JSON.stringify(error));
+                res.end();
+            }else{
+                res.status(200);
+                res.end();
+            }
+        });
+    });
+
+
     /* Route to delete a user, simply returns a 202 upon success. Ajax will handle this. */
 
     router.delete('/:id', function(req, res){
