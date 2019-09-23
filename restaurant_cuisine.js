@@ -29,7 +29,7 @@ module.exports = function(){
 
 
     function getRestaurantCuisine(res, mysql, context, complete){
-        mysql.pool.query("SELECT R.name AS restaurant_name, C.name AS cuisine_name, \
+        mysql.pool.query("SELECT RC.id, R.name AS restaurant_name, C.name AS cuisine_name, \
                             RC.restaurant_id, RC.cuisine_id FROM restaurant_cuisine RC \
                             INNER JOIN restaurant R ON R.id = RC.restaurant_id \
                             INNER JOIN cuisine C ON C.id = RC.cuisine_id \
@@ -82,6 +82,28 @@ module.exports = function(){
             }
         });
     });
+
+
+    /* The URI that update data is sent to in order to update a restaurant cuisine */
+
+           router.put('/:id', function(req, res){
+            var mysql = req.app.get('mysql');
+            //console.log(req.body)
+            //console.log(req.params.id)
+            var sql = "UPDATE restaurant_cuisine SET restaurant_id=?, cuisine_id=? WHERE id=?";
+            var inserts = [req.body.restaurant_id, req.body.cuisine_id, req.params.id];
+            sql = mysql.pool.query(sql,inserts,function(error, results, fields){
+                if(error){
+                    console.log(error)
+                    res.write(JSON.stringify(error));
+                    res.end();
+                }else{
+                    res.status(200);
+                    res.end();
+                }
+            });
+        });
+
 
 
     /* Delete a restaurant's cuisine record */

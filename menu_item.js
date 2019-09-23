@@ -7,7 +7,7 @@ module.exports = function(){
 
 
     function getMenuItem(res, mysql, context, complete){
-        mysql.pool.query("SELECT MI.id, R.name AS restaurant_name, MI.name, FORMAT(MI.price, 2), MI.description \
+        mysql.pool.query("SELECT MI.id, R.name AS restaurant_name, MI.name AS menu_item_name, FORMAT(MI.price, 2) AS price, MI.description \
                             FROM menu_item MI INNER JOIN restaurant R ON R.id = MI.restaurant_id \
                             ORDER BY R.name ASC", 
             function(error, results, fields){
@@ -83,6 +83,25 @@ module.exports = function(){
                 res.end();
             }else{
                 res.redirect('/menu_item');
+            }
+        });
+    });
+
+
+    /* The URI that update data is sent to in order to update a menu item */
+
+       router.put('/:id', function(req, res){
+        var mysql = req.app.get('mysql');
+        var sql = "UPDATE menu_item SET name=?,restaurant_id=?, price=?, description=? WHERE id=?";
+        var inserts = [req.body.menu_item_name, req.body.restaurant_id, req.body.price, req.body.description, req.params.id];
+        sql = mysql.pool.query(sql,inserts,function(error, results, fields){
+            if(error){
+                console.log(error)
+                res.write(JSON.stringify(error));
+                res.end();
+            }else{
+                res.status(200);
+                res.end();
             }
         });
     });

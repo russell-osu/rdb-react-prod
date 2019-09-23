@@ -4,7 +4,7 @@ class Table extends Component {
 
 	render() {
 
-		const { records, deleteRecord, tableHeaders } = this.props;
+		const { records, deleteRecord, updateRecord, tableHeaders, restaurantNames } = this.props;
 		
 		return (
             <table>
@@ -13,7 +13,9 @@ class Table extends Component {
 				/>
             	<TableBody 
             		records = {records} 
-            		deleteRecord = {deleteRecord}
+					deleteRecord = {deleteRecord}
+					updateRecord = {updateRecord}
+					restaurantNames = {restaurantNames}
             	/>
             </table>
         );
@@ -24,7 +26,7 @@ const TableHeader = props => {
 	const headers = props.tableHeaders.map( (header, index) => {
 
 		return (
-				<th>{header}</th>
+				<th key={header}>{header}</th>
 		);
 	});
 	
@@ -34,11 +36,21 @@ const TableHeader = props => {
 const TableBody = props => {
 	const rows = props.records.map((obj, index) => {
 
-
 		const tdata = Object.keys(obj).map( key => {
-			if(key !== "id" && !key.includes("_id")){//ensure id property is not displayed
+
+			// if(key === "restaurant_id"){
+			// 	var td = <td></td>;
+			// 	props.restaurantNames.forEach( element => {
+			// 		if(obj[key] === element["id"].toString()){	
+			// 			td = <td key={obj[key]}>{element["name"]}</td>
+			// 		}
+			// 	});
+			// 	return td;
+			// }
+
+			if(key !== "id" && !key.includes("_id") && !key.includes("visit")){//ensure id property and visit date are not displayed
 				return (
-				<td>{obj[key]}</td>
+				<td key={obj[key]}>{obj[key]}</td>
 				);
 			}
 		});
@@ -53,6 +65,7 @@ const TableBody = props => {
 			<tr key={obj.id}>
 				{tdata}
 				<td><button onClick={() => props.deleteRecord(obj.id, index)}>Delete</button></td>
+				<td><button onClick={() => props.updateRecord(obj, index)}>Update</button></td>
 			</tr>
 
 		);

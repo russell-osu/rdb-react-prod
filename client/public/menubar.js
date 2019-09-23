@@ -29,41 +29,41 @@ $(".menucell").hover(
 
 
 $("#home_page").click(()=>{
-	window.location.href = "/restaurant_review/";
+	window.location.href = "/restaurant_review_dev/";
 });
 
 $("#restaurant_page").click(()=>{
-	window.location.href = "/restaurant_review/restaurant_pg";
+	window.location.href = "/restaurant_review_dev/restaurant_pg";
 });
 
 $("#user_page").click(()=>{
-	window.location.href = "/restaurant_review/user_pg";
+	window.location.href = "/restaurant_review_dev/user_pg";
 });
 
 $("#visit_page").click(()=>{
-	window.location.href = "/restaurant_review/visit_pg";
+	window.location.href = "/restaurant_review_dev/visit_pg";
 });
 
 $("#user_visit_page").click(()=>{
-	window.location.href = "/restaurant_review/user_visit_pg";
+	window.location.href = "/restaurant_review_dev/user_visit_pg";
 });
 
 $("#restaurant_review_page").click(()=>{
-	window.location.href = "/restaurant_review/restaurant_review_pg";
+	window.location.href = "/restaurant_review_dev/restaurant_review_pg";
 });
 
 $("#menu_item_page").click(()=>{
-	window.location.href = "/restaurant_review/menu_item_pg";
+	window.location.href = "/restaurant_review_dev/menu_item_pg";
 });
 
 $("#menu_item_review_page").click(()=>{
-	window.location.href = "/restaurant_review/menu_item_review_pg";
+	window.location.href = "/restaurant_review_dev/menu_item_review_pg";
 });
 
 $("#cuisine_page").click(()=>{
-	window.location.href = "/restaurant_review/cuisine_pg";
+	window.location.href = "/restaurant_review_dev/cuisine_pg";
 });
 
 $("#restaurant_cuisine_page").click(()=>{
-	window.location.href = "/restaurant_review/restaurant_cuisine_pg";
+	window.location.href = "/restaurant_review_dev/restaurant_cuisine_pg";
 });

@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
 
-class Form extends Component {
+
+class UpdateForm extends Component {
 	constructor(props) {
 		super(props)
 
-		this.initialState = props.entityFields;
 
 		this.state = { 
-			fields: this.initialState,
-			restaurantNames: props.restaurantNames,
+			fields: props.entityFields,
+			restaurantNames: [],
 			userNames: [],
 			menuItemNames: [],
-			cuisineNames: []
+            cuisineNames: []
 		};
+		
+		this.restaurantNames = props.restaurantNames;
+		this.userNames = props.userNames;
+		this.menuItemNames = props.menuItemNames;
+		this.cuisineNames = props.cuisineNames;
 
 	}
+	
 
 
 	handleChange = event => {
@@ -25,42 +31,25 @@ class Form extends Component {
 				...prevState.fields,
 				[name] : value
 			}
-		}));
-		
+        }));
 	}
 
 	submitForm = async () => {
-		const result = await this.props.handleSubmit(this.state.fields);
-
-		//clear all form fields
-		this.setState( prevState => ({
-			fields: this.initialState
-		}));
-
-
-		const { entity, dropdownFields } = this.props;
-
-		if(entity === "restaurant_review" || entity === "menu_item_review" || entity === "menu_item")
-			document.getElementById("textfield").value = '';
-
-		if(dropdownFields.includes("restaurant_id"))
-			document.getElementById("restaurantDropdown").value = 0;
-
-		if(dropdownFields.includes("user_id"))	
-			document.getElementById("userDropdown").value = 0;
-
-		if(dropdownFields.includes("menu_item_id"))
-			document.getElementById("menuItemDropdown").value = 0;
-
-		if(dropdownFields.includes("cuisine_id"))	
-			document.getElementById("cuisineDropdown").value = 0;
+        //add current records id to submitted form
+        var tempFields = {};
+        tempFields = this.state.fields;
+        tempFields.id = this.props.currRecord.id;
+        const result = await this.props.handleSubmit(tempFields);
+        
 	}
 
 
 
 	render() {
 
-		const { fieldLabels, fieldNames, fieldTypes, dropdownFields, entity, restaurantNames, userNames, menuItemNames, cuisineNames } = this.props;
+		const { fieldLabels, fieldNames, fieldTypes, dropdownFields, entity, currRecord } = this.props;
+		const { restaurantNames, userNames, menuItemNames, cuisineNames, formFields } = this;
+	
 
 		const fields = fieldLabels.map( (header, index) => {
 			return (
@@ -79,31 +68,35 @@ class Form extends Component {
 
 		return (
             <div>   
-                <h3>Entity: {entity}</h3>
+                <h3>Update Record</h3>
                 <form id="form_post">
                     <fieldset>
                         
 						<RestaurantDropdown
 							dropdownFields = {dropdownFields}
 							restaurantNames = {restaurantNames}
+							currRecord = {currRecord}
 							formFields = {this.state.fields}
 							handleChange = {this.handleChange}
 						/>
 						<UserDropdown
 							dropdownFields = {dropdownFields}
 							userNames = {userNames}
+							currRecord = {currRecord}
 							formFields = {this.state.fields}
 							handleChange = {this.handleChange}
 						/>
 						<MenuItemDropdown
 							dropdownFields = {dropdownFields}
 							menuItemNames = {menuItemNames}
+							currRecord = {currRecord}
 							formFields = {this.state.fields}
 							handleChange = {this.handleChange}
 						/>
 						<CuisineDropdown
 							dropdownFields = {dropdownFields}
 							cuisineNames = {cuisineNames}
+							currRecord = {currRecord}
 							formFields = {this.state.fields}
 							handleChange = {this.handleChange}
 						/>						
@@ -112,11 +105,12 @@ class Form extends Component {
 						
 						<TextArea
 							entity = {entity}
+							currRecord = {currRecord}
 							handleChange = {this.handleChange}
 						/>
                         <input
                             type="button"
-                            value="Submit"
+                            value="Update"
                             onClick={this.submitForm} />
                     </fieldset>
                 </form>
@@ -131,7 +125,7 @@ class Form extends Component {
 
 const RestaurantDropdown =  (props) => {
 
-	let { dropdownFields, handleChange, restaurantNames } = props;
+	let { dropdownFields, currRecord, formFields, handleChange, restaurantNames } = props;
 
 
 	if(!(dropdownFields.includes("restaurant_id"))){
@@ -140,6 +134,9 @@ const RestaurantDropdown =  (props) => {
 
 
 	var restaurantOptions = restaurantNames.map ( (restaurant, index) => {
+		//find id matching curr records restaurant name for pre-populating dropdown
+		if(currRecord["restaurant_name"] === restaurant.name && formFields.restaurant_id === '')
+				formFields.restaurant_id = restaurant.id;
 
 		return (
 			<option key={restaurant.id} value={restaurant.id} >
@@ -151,10 +148,7 @@ const RestaurantDropdown =  (props) => {
 	return (
 			<>
 				<label>Restaurant</label>
-					<select name="restaurant_id" id="restaurantDropdown" onChange={handleChange}>
-						<option value = "0">
- 							[Select a restaurant]
- 						</option>
+					<select value={formFields.restaurant_id} name="restaurant_id" onChange={handleChange}>
 						{restaurantOptions}
 					</select>
 			</>
@@ -165,7 +159,7 @@ const RestaurantDropdown =  (props) => {
 
 const UserDropdown =  (props) => {
 
-	let { dropdownFields, handleChange, userNames } = props;
+	let { dropdownFields, currRecord, formFields, handleChange, userNames } = props;
 
 
 	if(!(dropdownFields.includes("user_id"))){
@@ -174,6 +168,9 @@ const UserDropdown =  (props) => {
 
 
 	var userOptions = userNames.map ( (user, index) => {
+		//find id matching curr records user name for pre-populating dropdown
+		if(currRecord["fname"] === user.fname && currRecord["lname"] === user.lname && formFields.user_id === '')
+				formFields.user_id = user.id;
 
 		return (
 			<option key={user.id} value={user.id} >
@@ -185,10 +182,7 @@ const UserDropdown =  (props) => {
 	return (
 			<>
 				<label>User</label>
-					<select name="user_id" id="userDropdown" onChange={handleChange}>
-						<option value = "0">
- 							[Select a user]
- 						</option>
+					<select value={formFields.user_id} name="user_id" onChange={handleChange}>
 						{userOptions}
 					</select>
 			</>
@@ -201,13 +195,18 @@ const UserDropdown =  (props) => {
 
 const MenuItemDropdown =  (props) => {
 
-	let { dropdownFields, handleChange, menuItemNames } = props;
+	let { dropdownFields, currRecord, formFields, handleChange, menuItemNames } = props;
+
 
 	if(!(dropdownFields.includes("menu_item_id"))){
 		return <> </>;
 	}
 
+
 	var menuItemOptions = menuItemNames.map ( (menuItem, index) => {
+		//find id matching curr records menuItem name for pre-populating dropdown
+		if(currRecord["menu_item_name"] === menuItem.menu_item_name && formFields.menu_item_id === '')
+				formFields.menu_item_id = menuItem.id;
 
 		return (
 			<option key={menuItem.id} value={menuItem.id} >
@@ -219,10 +218,7 @@ const MenuItemDropdown =  (props) => {
 	return (
 			<>
 				<label>Menu Item</label>
-					<select name="menu_item_id" id="menuItemDropdown" onChange={handleChange}>
-						<option value = "0">
- 							[Select a menu item]
- 						</option>						
+					<select value={formFields.menu_item_id} name="menu_item_id" onChange={handleChange}>
 						{menuItemOptions}
 					</select>
 			</>
@@ -234,7 +230,7 @@ const MenuItemDropdown =  (props) => {
 
 const CuisineDropdown =  (props) => {
 
-	let { dropdownFields,handleChange, cuisineNames } = props;
+	let { dropdownFields, currRecord, formFields, handleChange, cuisineNames } = props;
 
 
 	if(!(dropdownFields.includes("cuisine_id"))){
@@ -243,6 +239,9 @@ const CuisineDropdown =  (props) => {
 
 
 	var cuisineOptions = cuisineNames.map ( (cuisine, index) => {
+		//find id matching curr records cuisine name for pre-populating dropdown
+		if(currRecord["cuisine_name"] === cuisine.name && formFields.cuisine_id === '')
+				formFields.cuisine_id = cuisine.id;
 
 		return (
 			<option key={cuisine.id} value={cuisine.id} >
@@ -254,10 +253,7 @@ const CuisineDropdown =  (props) => {
 	return (
 			<>
 				<label>Cuisine</label>
-					<select name="cuisine_id" id="cuisineDropdown" onChange={handleChange}>
-						<option value = "0">
- 							[Select a cuisine]
- 						</option>
+					<select value={formFields.cuisine_id} name="cuisine_id" onChange={handleChange}>
 						{cuisineOptions}
 					</select>
 			</>
@@ -275,7 +271,8 @@ const TextArea = props => {
 		return (
 				<>
 					<label>Review</label>
-					<textarea name="review" id="textfield" rows="5" cols="80" form="form_post" required onChange={handleChange}>
+					<textarea name="review" rows="5" cols="80" form="form_post" required onChange={handleChange}>
+					{currRecord.review}
 					</textarea>
 				</>
 		);
@@ -285,7 +282,8 @@ const TextArea = props => {
 		return (
 				<>
 					<label>Item Description</label>
-					<textarea name="description" id="textfield" rows="5" cols="80" form="form_post" required onChange={handleChange}>
+					<textarea name="description" rows="5" cols="80" form="form_post" required onChange={handleChange}>
+					{currRecord.description}
 					</textarea>
 				</>
 		);
@@ -298,5 +296,6 @@ const TextArea = props => {
 
 
 
+export default UpdateForm;
 
-export default Form;
+

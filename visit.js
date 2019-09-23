@@ -19,7 +19,7 @@ module.exports = function(){
 
     function getVisit(res, mysql, context, complete){
         mysql.pool.query("SELECT V.id, R.name AS restaurant_name, DATE_FORMAT(V.visit_date, '%m/%d/%y') \
-                            AS visit_date, FORMAT(V.price, 2), V.meal_type FROM visit V \
+                            AS visit_date, FORMAT(V.price, 2) AS price, V.meal_type FROM visit V \
                             INNER JOIN restaurant R ON R.id = V.restaurant_id ORDER BY R.name ASC", 
             function(error, results, fields){
                 if(error){
@@ -68,6 +68,25 @@ module.exports = function(){
             }else{
                 //res.redirect('/visit');
                 res.status(201).end();
+            }
+        });
+    });
+
+
+       /* The URI that update data is sent to in order to update a visit */
+
+    router.put('/:id', function(req, res){
+        var mysql = req.app.get('mysql');
+        var sql = "UPDATE visit SET restaurant_id=?, visit_date=?, price=?, meal_type=? WHERE id=?";
+        var inserts = [req.body.restaurant_id, req.body.visit_date, req.body.price, req.body.meal_type, req.params.id];
+        sql = mysql.pool.query(sql,inserts,function(error, results, fields){
+            if(error){
+                console.log(error)
+                res.write(JSON.stringify(error));
+                res.end();
+            }else{
+                res.status(200);
+                res.end();
             }
         });
     });

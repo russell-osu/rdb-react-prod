@@ -6,7 +6,7 @@ module.exports = function(){
 
 
     function getCuisine(res, mysql, context, complete){
-        mysql.pool.query("SELECT id, name FROM cuisine ORDER BY name ASC", 
+        mysql.pool.query("SELECT id, name AS cuisine_name FROM cuisine ORDER BY name ASC", 
             function(error, results, fields){
                 if(error){
                     res.write(JSON.stringify(error));
@@ -54,6 +54,26 @@ module.exports = function(){
         });
     });
 
+
+       /* The URI that update data is sent to in order to update a cuisine */
+
+       router.put('/:id', function(req, res){
+        var mysql = req.app.get('mysql');
+        //console.log(req.body)
+        //console.log(req.params.id)
+        var sql = "UPDATE cuisine SET name=? WHERE id=?";
+        var inserts = [req.body.cuisine_name, req.params.id];
+        sql = mysql.pool.query(sql,inserts,function(error, results, fields){
+            if(error){
+                console.log(error)
+                res.write(JSON.stringify(error));
+                res.end();
+            }else{
+                res.status(200);
+                res.end();
+            }
+        });
+    });
 
     /* Route to delete a cuisine. Simply returns a 202 upon success. Ajax will handle this. */
 
